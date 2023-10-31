@@ -11,9 +11,29 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     ''
     """
     ciphertext = ""
-    # PUT YOUR CODE HERE
+    # A = 65 Z = 90
+    check = False
+    letter = ''
+    for symbol in plaintext:
+ #       symbol = symbol.upper()
+        if symbol.isupper():
+            check = True
+        else:
+            check = False
+        if (ord(symbol.upper()) > 64) and (ord(symbol.upper()) < 91):
+            if ord(symbol.upper()) + 3 < 91:
+                letter = chr(ord(symbol.upper()) + 3)
+            else:
+                letter = chr((ord(symbol.upper()) + 3)- 90 + 64)
+            if check:
+                ciphertext += letter
+            else:
+                ciphertext += letter.lower() 
+        else:
+            ciphertext += symbol
+        
     return ciphertext
-
+#print(encrypt_caesar("PYTHON"))
 
 def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     """
@@ -28,5 +48,25 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     ''
     """
     plaintext = ""
-    # PUT YOUR CODE HERE
+    
+    check = False
+    letter = ''
+    for symbol in ciphertext:
+        if symbol.isupper():
+            check = True
+        else:
+            check = False
+        if (ord(symbol.upper()) > 64) and (ord(symbol.upper()) < 91):
+            if ord(symbol.upper()) - 3 > 64:
+                letter = chr(ord(symbol.upper()) - 3)
+            else:
+                letter = chr((ord(symbol.upper()) - 3)+ 90 - 64)
+            if check:
+                plaintext += letter
+            else:
+                plaintext += letter.lower() 
+        else:
+            plaintext += symbol
+
     return plaintext
+#print(decrypt_caesar("Sbwkrq3.6"))
