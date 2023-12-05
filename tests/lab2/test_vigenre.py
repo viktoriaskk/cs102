@@ -1,6 +1,7 @@
 import unittest
 from src.lab2.vigenre import encrypt_vigenere, decrypt_vigenere
-
+import random 
+import string
 
 class VigenreTestCase(unittest.TestCase):
 
@@ -23,3 +24,10 @@ class VigenreTestCase(unittest.TestCase):
         for i in ans.keys():
             with self.subTest(i):
                 self.assertEqual(decrypt_vigenere(*i), ans[i])
+
+    def test_randomized(self):
+        kwlen = random.randint(4, 24)
+        keyword = ''.join(random.choice(string.ascii_letters) for _ in range(kwlen))
+        plaintext = ''.join(random.choice(string.ascii_letters + ' -,')for _ in range(64))
+        ciphertext = encrypt_vigenere(plaintext, keyword)
+        self.assertEqual(plaintext, decrypt_vigenere(ciphertext, keyword))
